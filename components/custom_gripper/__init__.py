@@ -6,11 +6,11 @@ from esphome import core
 
 from esphome.const import CONF_ID
 
-robotiq_ns = cg.esphome_ns.namespace('custom_gripper')
-RobotiqGripper = robotiq_ns.class_('custom_gripper', cg.Component)
+custom_gripper_ns = cg.esphome_ns.namespace('custom_gripper')
+CustomGripper = custom_gripper_ns.class_('custom_gripper', cg.Component)
 
 CONFIG_SCHEMA = cv.Schema({
-    cv.Required(CONF_ID): cv.declare_id(RobotiqGripper),
+    cv.Required(CONF_ID): cv.declare_id(CustomGripper),
 }).extend(cv.COMPONENT_SCHEMA)
 
 async def to_code(config):
