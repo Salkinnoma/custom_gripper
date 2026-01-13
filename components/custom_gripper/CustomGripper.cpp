@@ -15,7 +15,7 @@
 #define R_GTO  (1 << 3)
 #define G_ACT  (1 << 0)
 #define G_GTO  (1 << 3)
-
+// Class should match the header
 void CustomGripper::setup() {
   ESP_LOGI("ROB_GRIPPER", "Initializing gripper");
 
@@ -34,7 +34,7 @@ void CustomGripper::setup() {
   comm.parity = MB_PARITY_NONE;
   ESP_ERROR_CHECK(mbc_slave_setup(&comm));
 
-  // Set up register areas (same as your code)
+  // Set up register areas
   mb_register_area_descriptor_t reg_area;
 
   reg_area.type = MB_PARAM_HOLDING;
@@ -53,7 +53,7 @@ void CustomGripper::setup() {
   uart_set_mode(MB_PORT_NUM, UART_MODE_RS485_HALF_DUPLEX);
 }
 
-void RobotiqGripper::loop() {
+void CustomGripper::loop() {
   // Read master commands
   uint8_t control = (holding_regs.r_control >> 8) & 0xFF;
 
@@ -70,8 +70,9 @@ void RobotiqGripper::loop() {
   input_regs.g_pos_current = ((uint16_t)current_position << 8) | 10;
   input_regs.g_fault_echo = (0 << 8) | (holding_regs.r_position & 0xFF);
 
-  delay(20);
+  delay(20);  
 }
+
 
 void CustomGripper::servo_init() {
   ledc_timer_config_t timer = {};
