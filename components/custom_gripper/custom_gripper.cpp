@@ -16,7 +16,7 @@
 #define G_ACT  (1 << 0)
 #define G_GTO  (1 << 3)
 
-void RobotiqGripper::setup() {
+void CustomGripper::setup() {
   ESP_LOGI("ROB_GRIPPER", "Initializing gripper");
 
   // Servo init
@@ -73,7 +73,7 @@ void RobotiqGripper::loop() {
   delay(20);
 }
 
-void RobotiqGripper::servo_init() {
+void CustomGripper::servo_init() {
   ledc_timer_config_t timer = {};
   timer.speed_mode = LEDC_LOW_SPEED_MODE;
   timer.timer_num = LEDC_TIMER_0;
@@ -90,7 +90,7 @@ void RobotiqGripper::servo_init() {
   ledc_channel_config(&channel);
 }
 
-void RobotiqGripper::servo_move(uint8_t pos) {
+void CustomGripper::servo_move(uint8_t pos) {
   uint32_t us = SERVO_MIN_US + (pos * (SERVO_MAX_US - SERVO_MIN_US)) / 255;
   uint32_t duty = (us * 65535) / 20000;
   ledc_set_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_0, duty);
